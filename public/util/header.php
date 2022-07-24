@@ -157,7 +157,7 @@
                                    </ul>
                                </li>
    
-                               <li <?php if($pageName == "Blog"|| $pageName == "Blogs"){echo 'class="active"';}?>><a href="blog.php"><span class="data-hover" data-hover="blog">Blog</span></a></li>
+                               <li <?php if($pageName == "Blog"|| $pageName == "Blogs"){echo 'class="active"';}?>><a href="blogs.php"><span class="data-hover" data-hover="blog">Blog</span></a></li>
    
                                <li <?php if($pageName == "Contact"){echo 'class="active"';}?>><a href="contact.php"> <span class="data-hover" data-hover="contact">Contact</span></a></li>
    

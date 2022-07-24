@@ -37,31 +37,53 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
 						<div class="blog_medium">
-							<article class="post">
-								<div class="post_date">
-									<span class="day">28</span>
-									<span class="month">Nov</span>
-								</div>
-								<figure class="post_img">
-									<a href="#">
-										<img src="images/blog/blog_medium_1.png" alt="blog post">
-									</a>
-								</figure>
-								<div class="post_content">
-									<div class="post_meta">
-										<h2>
-											<a href="#">perferendis dolor asperio</a>
-										</h2>
-										<div class="metaInfo">
-											<span><i class="fa fa-user"></i> By <a href="#">Louis</a> </span>
-											<span><i class="fa fa-comments"></i> <a href="#">12 Comments</a></span>
-										</div>
+
+							<?php
+								require dirname(__DIR__).'/private/blogsLoader.php';
+								require dirname(__DIR__).'/private/definations/generalFunctions.php';
+								global $data;
+								foreach ($data as $article) {
+									$date = explode(" ",$article['blog_create_date'])[0];
+									[$Y,$M,$D] = explode("-",$date,3);
+									$commentCount = count(json_decode(($article['blog_comments']),true));
+									$show =substr($article['blog_desc'],0,160);
+									$show.='...';
+
+									echo '<article class="post">
+									<div class="post_date">
+										<span class="day">'.$D.'</span>
+										<span class="month">'.intToMonthName($M).'</span>
 									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adip, sed do eiusmod tempor incididunt  ut aut reiciendise voluptat maiores alias consequaturs aut perferendis doloribus asperiores ut labore.</p>
-									<a class="btn btn-small btn-default" href="#">Read More</a>
-									
-								</div>
-							</article>
+									<figure class="post_img">
+										<a href="#">
+											<img src="'.$article['blog_img'].'" alt="blog post">
+										</a>
+									</figure>
+									<div class="post_content">
+										<div class="post_meta">
+											<h2>
+												<a href="#">'.$article['blog_title'].'</a>
+											</h2>
+											<div class="metaInfo">
+												<span><i class="fa fa-user"></i> By <a href="#">'.$article['blog_author'].'</a> </span>
+												<span><i class="fa fa-comments"></i> <a href="#">'. ++$commentCount .' Comments</a></span>
+											</div>
+										</div>
+										<p>'.$show.'</p>
+										<a class="btn btn-small btn-default" href="blog-post.php?blog_id='.$article['blog_id'].'">Read More</a>
+										
+									</div>
+								</article>';
+								}
+							?>
+
+								
+								
+						
+
+
+
+
 							
 							<article class="post">
 								<div class="post_date">

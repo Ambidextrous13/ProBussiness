@@ -1,3 +1,8 @@
+<?php
+  if(isset($_GET['blog_id'])){
+    $blog_id = $_GET['blog_id'];
+  }  
+?>
 <!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie ie8" class="no-js" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
@@ -21,6 +26,7 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="js/01custom.js" defer></script>
 </head>
 <body>
 <!--Start Header-->
@@ -37,37 +43,42 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
 						<div class="blog_single">
-							<article class="post">
+                            <?php
+                                require dirname(__DIR__).'/private/definations/dbFunctions.php';
+                                require dirname(__DIR__).'/private/definations/generalFunctions.php';
+                
+                                $query = "SELECT * FROM `blogs` WHERE `blog_id`=?";
+                                $inputs = [$blog_id];
+                                $types = [PDO::PARAM_STR];
+                                $article = runQuery($query,$inputs,$types)[0];
+
+                                $date = explode(" ",$article['blog_create_date'])[0];
+                                [$Y,$M,$D] = explode("-",$date,3);
+                                $commentCount = count(json_decode(($article['blog_comments']),true));
+									
+							echo '<article class="post">
 								<figure class="post_img">
 									<a href="#">
-										<img src="images/blog/blog_1.png" alt="blog post">
+										<img src="'.$article['blog_img'].'" alt="'.$article['blog_title'].'">
 									</a>
 								</figure>
 								<div class="post_date">
-									<span class="day">28</span>
-									<span class="month">Nov</span>
+									<span class="day">'.$D.'</span>
+									<span class="month">'.intToMonthName($M).'</span>
 								</div>
 								<div class="post_content">
 									<div class="post_meta">
 										<h2>
-											<a href="#">perferendis doloribus asperiores ut labore</a>
+											<a href="#">'.$article['blog_title'].'</a>
 										</h2>
 										<div class="metaInfo">
-											<span><i class="fa fa-calendar"></i> <a href="#">Nov 28, 2015</a> </span>
-											<span><i class="fa fa-user"></i> By <a href="#">Louis</a> </span>
-											<span><i class="fa fa-tag"></i> <a href="#">Emin</a>, <a href="#">News</a> </span>
-											<span><i class="fa fa-comments"></i> <a href="#">12 Comments</a></span>
+											<span><i class="fa fa-calendar"></i> <a href="#">'.intToMonthName($M).' '.$D.' '.$Y.'</a> </span>
+											<span><i class="fa fa-user"></i> By <a href="#">'.$article['blog_author'].'</a> </span>
+											<span><i class="fa fa-tag"></i><a href="#">'.$article['blog_catogories'].'</a> </span>
+											<span><i class="fa fa-comments"></i> <a href="#">'. ++$commentCount.' Comments</a></span>
 										</div>
 									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adip, sed do eiusmod tempor incididunt  ut aut reiciendise voluptat maiores alias consequaturs aut perferendis doloribus asperiores ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-									
-									<blockquote class="default">
-										Nulla nunc dui, tristique in semper vel, congue sed ligula. Nam dolor ligula, faucibus id sodales in, auctor fringilla libero. Pellentesque pellentesque eget tempor tellus. Fusce lacinia tempor malesuada. Ut lacus sapien, placerat a ornare nec, elementum sit amet felis. Maecenas pretium lorem hendrerit eros sagittis fermentum.
-									</blockquote>
-									
-									<p>Morbi augue velit, tempus mattis dignissim nec, porta sed risus. Donec eget magna eu lorem tristique pellentesque eget eu dui. Fusce lacinia tempor malesuada. Ut lacus sapien, placerat a ornare nec, elementum sit amet felis. Maecenas pretium hendrerit fermentum. Fusce lacinia tempor malesuada. Ut lacus sapien, placerat a ornare nec, elementum sit amet felis. Maecenas pretium lorem hendrerit eros sagittis fermentum.</p>
-									
-									<p>Donec in ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus. Nulla eu mi magna. Etiam suscipit commodo gravida. Cras suscipit, quam vitae adipiscing faucibus, risus nibh laoreet odio, a porttitor metus eros ut enim. Morbi augue velit, tempus mattis dignissim nec, porta sed risus. Donec eget magna eu lorem tristique pellentesque eget eu duiport titor metus eros ut enim. </p>
+									'.$article['blog_desc'].'
 								</div>
 								<ul class="shares">
 									<li class="shareslabel"><h3>Share This Story</h3></li>
@@ -89,88 +100,79 @@
 									</ul>
 								</div>
 								<div class="author_bio">
-									<h3 class="author_name"><a href="#">Tom Jobs</a></h3>
-									<h5>CEO at <a href="#">Yahoo Baba</a></h5>
+									<h3 class="author_name"><a href="#">'.$article['blog_author'].'</a></h3>
+									<h5>CEO at <a href="#">website</a></h5>
 									<p class="author_det">
-										Lorem ipsum dolor sit amet, consectetur adip, sed do eiusmod tempor incididunt  ut aut reiciendise voluptat maiores alias consequaturs aut perferendis doloribus omnis saperet docendi nec, eos ea alii molestiae aliquand.
-									</p>
+                                        Author\'s Details
+                                    </p>
 								</div>
 							</div>
-						</div>
-
-						<!--News Comments-->
-                        <div class="news_comments">
+                            <!--News Comments-->
+                            <div class="news_comments">
                             <div class="dividerHeading">
-                                <h4><span>Comments (6)</span></h4>
+                            <h4><span>Comments ('.$commentCount.')</span></h4>
                             </div>
+                            </div>';
+                            ?>
                             <div id="comment">
                                 <ul id="comment-list">
-                                    <li class="comment">
+
+
+
+                            <?php
+                            // Comment section//------------------------------------------------------------------------------------
+                                $comments = json_decode($article['blog_comments'],true);
+                                foreach($comments as $comment) {
+                                    echo '<li id="'.$comment['id'].'" class="comment">
                                         <div class="avatar"><img alt="" src="images/blog/avatar_1.png" class="avatar"></div>
                                         <div class="comment-container">
-                                            <h4 class="comment-author"><a href="#">John Smith</a></span></h4>
-                                            <div class="comment-meta"><a href="#" class="comment-date">February 22, 2015</a><a class="comment-reply-link" href="#respond">Reply &raquo;</a></div>
+                                            <h4 class="comment-author"><a>'.$comment['name'].'</a></span></h4>
+                                            <div class="comment-meta"><a class="comment-date">'.$comment['date'].'</a><a class="comment-reply-link reply-js" style="cursor:pointer;" >Reply &raquo;</a></div>
                                             <div class="comment-body">
-                                                <p>Ne omnis saperet docendi nec, eos ea alii molestiae aliquand. Latine fuisset mele, mandamus atrioque eu mea, wi forensib argumentum vim an. Te viderer conceptam sed, mea et delenit fabellas probat.</p>
+                                                <p>'.$comment['comment'].'</p>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <li class="comment">
-                                        <div class="avatar"><img alt="" src="images/blog/avatar_2.png" class="avatar"></div>
-                                        <div class="comment-container">
-                                            <h4 class="comment-author"><a href="#">Eva Smith</a></span></h4>
-                                            <div class="comment-meta"><a href="#" class="comment-date">February 13, 2015</a><a class="comment-reply-link" href="#respond">Reply &raquo;</a></div>
-                                            <div class="comment-body">
-                                                <p>Vidit nulla errem ea mea. Dolore apeirian insolens mea ut, indoctum consequuntur hasi. No aeque dictas dissenti as tusu, sumo quodsi fuisset mea in. Ea nobis populo interesset cum, ne sit quis elit officiis, min im tempor iracundia sit anet. Facer falli aliquam nec te. In eirmod utamur offendit vis, posidonium instructior sed te.</p>
-                                            </div>
-                                        </div>
-                                        <ul class="children">
-                                            <li class="comment">
-                                                <div class="avatar"><img alt="" src="images/blog/avatar_3.png" class="avatar"></div>
-                                                <div class="comment-container">
-                                                    <h4 class="comment-author"><a href="#">Thomas Smith</a></span></h4>
-                                                    <div class="comment-meta"><a href="#" class="comment-date">February 14, 2015</a><a class="comment-reply-link" href="#respond">Reply &raquo;</a></div>
-                                                    <div class="comment-body">
-                                                        <p>Labores pertinax theophrastus vim an. Error ditas in sea, per no omnis iisque nonumes. Est an dicam option, ad quis iriure saperet nec, ignota causae inciderint ex vix. Iisque qualisque imp duo eu, pro reque consequ untur. No vero laudem legere pri, error denique vis ne, duo iusto bonorum.</p>
-                                                    </div>
-                                                </div>
-                                                <ul class="children">
-                                                    <li class="comment">
-                                                        <div class="avatar"><img alt="" src="images/blog/avatar_2.png" class="avatar"></div>
-                                                        <div class="comment-container">
-                                                            <h4 class="comment-author"><a href="#">Eva Smith</a></span></h4>
-                                                            <div class="comment-meta"><a href="#" class="comment-date">February 14, 2015</a><a class="comment-reply-link" href="#respond">Reply &raquo;</a></div>
-                                                            <div class="comment-body">
-                                                                <p>Dico animal vis cu, sed no aliquam appellantur, et exerci eleifend eos. Vixese eros tiloi novum adtam, mazim inimicus maiestatis ad vim. Ex his unum fuisset reformidans, has iriure ornatus atomorum ut, ad tation feugiat impedit per.</p>
-                                                            </div>
+                                        </div>';
+                                    if(isset($comment['replies'])){
+                                        $replies = $comment['replies'];
+                                        foreach ($replies as $reply) {
+                                            echo 
+                                            '<ul class="children">
+                                                <li class="comment">
+                                                    <div class="avatar"><img alt="" src="images/blog/avatar_3.png" class="avatar"></div>
+                                                    <div class="comment-container">
+                                                        <h4 class="comment-author"><a >'.$reply['name'].'</a></span></h4>
+                                                        <div class="comment-meta"><a  class="comment-date">'.$reply['date'].'</a><a class="comment-reply-link reply-js" style="cursor:pointer;">Reply &raquo;</a></div>
+                                                        <div class="comment-body">
+                                                            <p>'.$reply['comment'].'</p>
                                                         </div>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="comment">
-                                        <div class="avatar"><img alt="" src="images/blog/avatar_1.png" class="avatar"></div>
-                                        <div class="comment-container">
-                                            <h4 class="comment-author"><a href="#">John Smith</a></span></h4>
-                                            <div class="comment-meta"><a href="#" class="comment-date">February 07, 2015</a><a class="comment-reply-link" href="#respond">Reply &raquo;</a></div>
-                                            <div class="comment-body">
-                                                <p>Eu mea harum soleat albucius. At duo nihil saperet inimicus. Ne quo dicit offendit eloquenam. Ut intellegam inn theophras tus mea. Vide ceteros mediocritatem est in, utamur gubergren contentiones.</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="comment">
-                                        <div class="avatar"><img alt="" src="images/blog/avatar_3.png" class="avatar"></div>
-                                        <div class="comment-container">
-                                            <h4 class="comment-author"><a href="#">Thomas Smith</a></span></h4>
-                                            <div class="comment-meta"><a href="#" class="comment-date">February 02, 2015</a><a class="comment-reply-link" href="#respond">Reply &raquo;</a></div>
-                                            <div class="comment-body">
-                                                <p>Quodsi eirmod salutandi usu ei, ei mazim facete mel. Deleniti interesset at sed, sea ei malis expetenda. Ei efficiat integebat mel, vis alii insoles te. Vis ex bonorum contentiones. An cum possit reformidans. Est at eripuit theophrastus. Scripta imper diet ad nec, everti contentiones id eam, an eum causae officiis.</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+                                                    </div>';
+                                            if(isset($comment['replies'])){
+                                                $subReplies = $comment['replies'];
+                                                foreach ($subReplies as $subReply) {
+                                                    echo 
+                                                    '<ul class="children">
+                                                        <li class="comment">
+                                                            <div class="avatar"><img alt="" src="images/blog/avatar_3.png" class="avatar"></div>
+                                                            <div class="comment-container">
+                                                                <h4 class="comment-author"><a >'.$subReply['name'].'</a></span></h4>
+                                                                <div class="comment-meta"><a  class="comment-date">'.$subReply['date'].'</a></div>
+                                                                <div class="comment-body">
+                                                                    <p>'.$subReply['comment'].'</p>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>';
+                                                }
+                                            }
+                                            echo '</li></ul>';
+    
+                                        }
+                                    }
+                                    echo '</li>';
+                                }
+                                echo '</ul>';
+                            ?>
+                                   
                             <!-- /#comments -->
                             <div class="dividerHeading">
                                 <h4><span>Leave a comment</span></h4>
