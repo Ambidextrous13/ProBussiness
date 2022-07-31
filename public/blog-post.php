@@ -123,7 +123,7 @@
                             // Comment section//------------------------------------------------------------------------------------
                                 $comments = json_decode($article['blog_comments'],true);
                                 foreach($comments as $comment) {
-                                    echo '<li id="'.$comment['id'].'" class="comment">
+                                    echo  '<li id="'.$comment['id'].'" class="comment">
                                         <div class="avatar"><img alt="" src="images/blog/avatar_1.png" class="avatar"></div>
                                         <div class="comment-container">
                                             <h4 class="comment-author"><a>'.$comment['name'].'</a></span></h4>
@@ -134,10 +134,11 @@
                                         </div>';
                                     if(isset($comment['replies'])){
                                         $replies = $comment['replies'];
+                                        
                                         foreach ($replies as $reply) {
-                                            echo 
+                                            echo
                                             '<ul class="children">
-                                                <li class="comment">
+                                                <li id="'.$reply['id'].'" class="comment">
                                                     <div class="avatar"><img alt="" src="images/blog/avatar_3.png" class="avatar"></div>
                                                     <div class="comment-container">
                                                         <h4 class="comment-author"><a >'.$reply['name'].'</a></span></h4>
@@ -146,12 +147,12 @@
                                                             <p>'.$reply['comment'].'</p>
                                                         </div>
                                                     </div>';
-                                            if(isset($comment['replies'])){
-                                                $subReplies = $comment['replies'];
+                                            if(isset($reply['replies'])){
+                                                $subReplies = $reply['replies'];
                                                 foreach ($subReplies as $subReply) {
-                                                    echo 
+                                                    echo
                                                     '<ul class="children">
-                                                        <li class="comment">
+                                                        <li id="'.$subReply['id'].'"  class="comment">
                                                             <div class="avatar"><img alt="" src="images/blog/avatar_3.png" class="avatar"></div>
                                                             <div class="comment-container">
                                                                 <h4 class="comment-author"><a >'.$subReply['name'].'</a></span></h4>
@@ -174,7 +175,7 @@
                             ?>
                                    
                             <!-- /#comments -->
-                            <div class="dividerHeading">
+                            <!-- <!-- <div class="dividerHeading"> -->
                                 <h4><span>Leave a comment</span></h4>
                                 </div>
 
@@ -202,7 +203,6 @@
                             <a class="btn btn-lg btn-default" href="#">Post Comment</a>
                         </div>
 				    </div>
-
 					<!--Sidebar Widget-->
 					<div class="col-xs-12 col-md-4 col-lg-4 col-sm-4">
 						<div class="sidebar">

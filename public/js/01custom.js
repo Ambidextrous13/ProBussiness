@@ -54,9 +54,13 @@ const creator = function(event) { // creator fxn to create a create comment dial
             date[1] +=","
             date = date.join("")
 
-            let params = (new URL(url)).searchParams;
-            const blog_id = params.get("blog_id");
 
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const blog_id = urlParams.get('blog_id')
+            // let params = (new URL(url)).searchParams;
+            // const blog_id = params.get("blog_id");
+            console.log(commentId)
             fetch("fetchAccept.php",{
                 "method":"POST",
                 "body":JSON.stringify({
@@ -101,10 +105,7 @@ replyArr.forEach(element => { // assigning event listener to all reply array ele
 
 
 const body = document.querySelector("body")
-body.addEventListener("click",(event)=>{
-    event.preventDefault()
-    event.stopPropagation()
-    
+body.addEventListener("click",(event)=>{   
     var deletable = document.getElementById("holder-js");
     if(deletable){
         deletable.remove()

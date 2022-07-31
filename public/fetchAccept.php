@@ -28,8 +28,7 @@
     }
     
     elseif ($temp_id[2]==0) {
-        $nonComment = $comments[$temp_id[0].'-0-0'];
-        $workingComment = $nonComment["replies"][$temp_id[0].'-'.$temp_id[1].'-0'];
+        $workingComment = $comments[$temp_id[0].'-0-0']["replies"][$temp_id[0].'-'.$temp_id[1].'-0'];
         $id = 1;
         if(isset($workingComment["replies"])){
             $id += count($workingComment["replies"]);

@@ -62,7 +62,7 @@
 									<div class="post_content">
 										<div class="post_meta">
 											<h2>
-												<a href="#">'.$article['blog_title'].'</a>
+												<a href="blog-post.php?blog_id='.$article['blog_id'].'">'.$article['blog_title'].'</a>
 											</h2>
 											<div class="metaInfo">
 												<span><i class="fa fa-user"></i> By <a href="#">'.$article['blog_author'].'</a> </span>
