@@ -27,6 +27,7 @@
 <?php
     $pageName = 'Pricing Table';
     require __DIR__.'/util/header.php'; 
+    echo $header;
 ?>
 <!--End Header-->
 	
@@ -283,6 +284,7 @@
 	<!--start footer-->
     <?php
     require __DIR__.'/util/footer.php';
+    echo $footer;
 ?>
 	<!--end footer-->
 	

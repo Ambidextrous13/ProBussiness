@@ -27,6 +27,7 @@
 <?php
     $pageName = 'Contact';
     require __DIR__.'/util/header.php'; 
+    echo $header;
 ?>
 <!--End Header-->
 	
@@ -93,42 +94,46 @@
 						</form>
 					</div>
 					
-					<div class="col-lg-4 col-md-4 col-sm-4">
-						<div class="sidebar">
-							<div class="widget_info">
-								<div class="dividerHeading">
-									<h4><span>Contact Info</span></h4>
-									</div>
-								<p>Lorem ipsum dolor sit amet, consectetur adip, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-								<ul class="widget_info_contact">
-									<li><i class="fa fa-map-marker"></i> <p><strong>Address</strong>: #2021 Lorem Ipsum</p></li>
-									<li><i class="fa fa-user"></i> <p><strong>Phone</strong>:(+91) 9000-12345</p></li>
-									<li><i class="fa fa-envelope"></i> <p><strong>Email</strong>: <a href="#">mail@example.com</a></p></li>
-									<li><i class="fa fa-globe"></i> <p><strong>Web</strong>: <a href="#" data-placement="bottom" data-toggle="tooltip" title="www.example.com">www.example.com</a></p></li>
-								</ul>
-								
-							</div>
-							
-							<div class="widget_social">
-								<div class="dividerHeading">
-									<h4><span>Get Social</span></h4>
-								</div>
-								<ul class="widget_social">
-									<li><a class="fb" href="#." data-placement="bottom" data-toggle="tooltip" title="Facbook"><i class="fa fa-facebook"></i></a></li>
-									<li><a class="twtr" href="#." data-placement="bottom" data-toggle="tooltip" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-									<li><a class="gmail" href="#." data-placement="bottom" data-toggle="tooltip" title="Google"><i class="fa fa-google-plus"></i></a></li>
-									<li><a class="dribbble" href="#." data-placement="bottom" data-toggle="tooltip" title="Dribbble"><i class="fa fa-dribbble"></i></a></li>
-									<li><a class="skype" href="#." data-placement="bottom" data-toggle="tooltip" title="Skype"><i class="fa fa-skype"></i></a></li>
-									<li><a class="pinterest" href="#." data-placement="bottom" data-toggle="tooltip" title="Pinterest"><i class="fa fa-pinterest"></i></a></li>
-									<li><a class="instagram" href="#." data-placement="bottom" data-toggle="tooltip" title="Instagram"><i class="fa fa-instagram"></i></a></li>
-									<li><a class="youtube" href="#." data-placement="bottom" data-toggle="tooltip" title="Youtube"><i class="fa fa-youtube"></i></a></li>
-									<li><a class="linkedin" href="#." data-placement="bottom" data-toggle="tooltip" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
-									<li><a class="flickrs" href="#." data-placement="bottom" data-toggle="tooltip" title="Flickr"><i class="fa fa-flickr"></i></a></li>
-									<li><a class="rss" href="#." data-placement="bottom" data-toggle="tooltip" title="RSS"><i class="fa fa-rss"></i></a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
+					<?php
+					require __dir__.'/util/info.php';
+						echo '
+						<div class="col-lg-4 col-md-4 col-sm-4">
+                                <div class="sidebar">
+                                    <div class="widget_info">
+                                        <div class="dividerHeading">
+                                            <h4><span>Contact Info</span></h4>
+                                            </div>
+                                        <p>'.$paraInfo.'</p>
+                                        <ul class="widget_info_contact">
+                                            <li><i class="fa fa-map-marker"></i> <p><strong>Address</strong>: '.$address.'</p></li>
+                                            <li><i class="fa fa-user"></i> <p><strong>Phone</strong><a href="tel:">: '.$phone.'</p></li>
+                                            <li><i class="fa fa-envelope"></i> <p><strong>Email</strong>: <a href="mailto:">'.$email.'</a></p></li>
+                                            <li><i class="fa fa-globe"></i> <p><strong>Web</strong>: <a href="index.php" data-placement="bottom" data-toggle="tooltip" title="'.$website.'">'.$website.'</a></p></li>
+                                        </ul>
+                                        
+                                    </div>
+                                    
+                                    <div class="widget_social">
+                                        <div class="dividerHeading">
+                                            <h4><span>Get Social</span></h4>
+                                        </div>
+                                        <ul class="widget_social">
+                                            <li><a class="fb" href="'.$facebook.'" data-placement="bottom" data-toggle="tooltip" title="Facbook" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                                            <li><a class="twtr" href="'.$twitterAccount.'" data-placement="bottom" data-toggle="tooltip" title="Twitter"  target="_blank"><i class="fa fa-twitter"></i></a></li>
+                                            <li><a class="gmail" href="'.$gPlus.'" data-placement="bottom" data-toggle="tooltip" title="Google"><i class="fa fa-google-plus"></i></a></li>
+                                            <li><a class="dribbble" href="'.$dribble.'" data-placement="bottom" data-toggle="tooltip" title="Dribbble"><i class="fa fa-dribbble"></i></a></li>
+                                            <li><a class="skype" href="'.$skype.'" data-placement="bottom" data-toggle="tooltip" title="Skype"><i class="fa fa-skype"></i></a></li>
+                                            <li><a class="pinterest" href="'.$pinterest.'" data-placement="bottom" data-toggle="tooltip" title="Pinterest"><i class="fa fa-pinterest"></i></a></li>
+                                            <li><a class="instagram" href="'.$insta.'" data-placement="bottom" data-toggle="tooltip" title="Instagram"><i class="fa fa-instagram"></i></a></li>
+                                            <li><a class="youtube" href="'.$youtube.'" data-placement="bottom" data-toggle="tooltip" title="Youtube"><i class="fa fa-youtube"></i></a></li>
+                                            <li><a class="linkedin" href="'.$linkedIn.'" data-placement="bottom" data-toggle="tooltip" title="Linkedin"  target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                                            <li><a class="flickrs" href="'.$flickr.'" data-placement="bottom" data-toggle="tooltip" title="Flickr"><i class="fa fa-flickr"></i></a></li>
+                                            <li><a class="rss" href="'.$rss.'" data-placement="bottom" data-toggle="tooltip" title="RSS"><i class="fa fa-rss"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>';
+					?>
 					
 				</div>
 			</div>

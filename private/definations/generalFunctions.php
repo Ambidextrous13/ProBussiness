@@ -30,4 +30,10 @@
        break;
        }
     }
-?>
+
+    function noData(){
+        echo '<h2>
+                <a class = "blog_medium post_meta h2">No Data Found</a>
+                <br><br>
+            </h2>';
+    }

@@ -1,10 +1,12 @@
-<header id="header">
+<?php
+    require __dir__.'/info.php';
+$header = '<header id="header">
     <div id="header-top">
         <div class="container">
             <div class="row">
                 <div class="hidden-xs col-lg-7 col-sm-5 top-info">
-                    <span><i class="fa fa-phone"></i>Phone: 0*10</span>
-                    <span class="hidden-sm"><i class="fa fa-envelope"></i>Email: admin@gmail.com</span>
+                    <span><i class="fa fa-phone"></i>Phone: <a href="tel:" style = "text-decoration : none; color : #fff">'.$phone.'</a></span>
+                    <span class="hidden-sm"><i class="fa fa-envelope"></i>Email: <a href="mailto:"  style = "text-decoration : none; color : #fff">'.$email.'</a></span>
                 </div>
                 <div class="col-lg-5">
                     <ul class="dropdown-items clearfix">
@@ -43,10 +45,8 @@
                             <div class="my-account">
                                 <div class="dropdown">
                                     <a class="account-dropdown" href="#" data-toggle="dropdown">
-                                        Hi, <?php
-                                        $userName = "Oreo";
-                                            echo $userName;
-                                        ?>
+                                        Hi, '.$userName.'
+
                                         <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu pull-right" role="menu">
@@ -148,20 +148,21 @@
                        </div>
                        <div class="navbar-collapse collapse">
                            <ul class="nav navbar-nav">
-                               <li <?php if($pageName=="Home"){echo 'class="active"';}?>><a href="index.php"><span class="data-hover" data-hover="home">Home</span></a></li>
+
+                               <li '; if($pageName=="Home"){$header .= 'class="active"';} $header.='><a href="index.php"><span class="data-hover" data-hover="home">Home</span></a></li>
    
-                               <li <?php if($pageName == "Shop"|| $pageName == "Cart"){echo 'class="active"';}?>><a href="#"><span class="data-hover"data-hover="shop">Shop</span></a>
+                               <li '; if($pageName == "Shop"|| $pageName == "Cart"){$header.= 'class="active"';} $header.='><a href="#"><span class="data-hover"data-hover="shop">Shop</span></a>
                                    <ul class="dropdown-menu">
                                        <li><a href="shop.php">Shop</a></li>
                                        <li><a href="cart.php">Cart</a></li>
                                    </ul>
                                </li>
    
-                               <li <?php if($pageName == "Blog"|| $pageName == "Blogs"){echo 'class="active"';}?>><a href="blogs.php"><span class="data-hover" data-hover="blog">Blog</span></a></li>
+                               <li '; if($pageName == "Blog"|| $pageName == "Blogs"){$header.= 'class="active"';}$header.='><a href="blogs.php"><span class="data-hover" data-hover="blog">Blog</span></a></li>
    
-                               <li <?php if($pageName == "Contact"){echo 'class="active"';}?>><a href="contact.php"> <span class="data-hover" data-hover="contact">Contact</span></a></li>
+                               <li '; if($pageName == "Contact"){$header.= 'class="active"';}$header.='><a href="contact.php"> <span class="data-hover" data-hover="contact">Contact</span></a></li>
    
-                               <li <?php if($pageName == "Portfolios"||$pageName == "About"|| $pageName == "FAQ"){echo 'class="active"';}?>><a href="#"><span class="data-hover" data-hover="about">About</span></a>
+                               <li '; if($pageName == "Portfolios"||$pageName == "About"|| $pageName == "FAQ"){$header.= 'class="active"';}$header.='><a href="#"><span class="data-hover" data-hover="about">About</span></a>
                                    <ul class="dropdown-menu">
                                        <li><a href="portfolio.php">Portfolio</a></li>
                                        <li><a href="about.php">About Us</a></li>
@@ -173,11 +174,10 @@
                    </div>
                </div>
            </div>
-       </div>
-    <?php
+       </div>';
         if($pageName == "Home")
         {
-           echo  '
+            $header.=  '
        <div class="slider_block">
            <div class="flexslider top_slider">
                <ul class="slides">
@@ -185,11 +185,11 @@
                        <div class="container">
                            <div class="flex_caption1">
    
-                               <p class="slide-heading FromTop">Voluptas Assumenda Est </p><br/>
+                               <p class="slide-heading FromTop">Trusted by MNCs</p><br/>
    
-                               <p class="sub-line FromBottom">Dolore Magnam Aliquam Quaerat Voluptatem  </p><br/>
+                               <p class="sub-line FromBottom">Goolge, Facebook, PayPal</p><br/>
    
-                               <a href="" class="slider-read FromLeft">Download Now</a>
+                               <a href="downloadable\CV_CS.pdf" class="slider-read FromLeft">Download Brochure</a>
                            </div>
                            <div class="flex_caption2 FromRight"></div>
                        </div>
@@ -200,9 +200,9 @@
                            <div class="slide flex_caption1">
                                <p class="slide-heading FromTop">ProBusiness is our theme</p><br/>
    
-                               <p class="sub-line FromRight">Dolore Magnam Aliquam Quaerat Voluptatem </p><br/>
+                               <p class="sub-line FromRight">We also have arrow for dark mode  in our quiver</p><br/>
    
-                               <a href="" class="slider-read FromLeft">Download Now</a>
+                               <a href="downloadable\CV_CS.pdf" class="slider-read FromLeft">Download Brochure</a>
    
                            </div>
                            <div class="flex_caption2 FromBottom"></div>
@@ -215,7 +215,7 @@
    
                                <p class="sub-line FromRight">Powerful Features & Responsive Designs </p><br/>
    
-                               <a href="" class="slider-read FromLeft">Download Now</a>
+                               <a href="downloadable\CV_CS.pdf" class="slider-read FromLeft">Download Brochure</a>
    
                            </div>
                            <div class="flex_caption2 FromRight"></div>
@@ -227,13 +227,13 @@
        ';
         }
         else {
-            echo '<section class="page_head">
+            $header.= '<section class="page_head">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <nav id="breadcrumbs">
                             <ul>
-                                <li><a href="index.html">Home</a></li>
+                                <li><a href="index.php">Home</a></li>
                                 <li>'.$pageName.'</li>
                             </ul>
                         </nav>
@@ -242,7 +242,5 @@
             </div>
         </section>';
         }
+        $header .= "</header>";
     ?>
-    
-</header>  
-

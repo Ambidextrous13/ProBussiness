@@ -11,7 +11,17 @@
     $comments = json_decode(runQuery($query,$inputs,$type)[0]['blog_comments'],true);
 
     $temp_id = explode("-",$recievedJson["parent-id"]);
-    if($temp_id[1]==0)
+    if ($temp_id[0]==0) {
+        $id = count($comments)+1;
+        $id = $id.'-0-0';
+        $com = [
+            "id"=> $id,
+            "name"=>$recievedJson["name"],
+            "date"=>$recievedJson["date"],
+            "comment"=>$recievedJson["comment"]
+        ];
+        $comments[$id] = $com;
+    }elseif($temp_id[1]==0)
     {
         $workingComment = $comments[$temp_id[0].'-0-0'];
         $id = 1;

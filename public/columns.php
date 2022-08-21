@@ -27,6 +27,7 @@
 <?php
     
     require __DIR__.'/util/header.php'; 
+    echo $header;
 ?>
 <!--End Header-->
 	
@@ -153,6 +154,7 @@
 	<!--start footer-->
     <?php
     require __DIR__.'/util/footer.php';
+    echo $footer;
 ?>
 
     <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>

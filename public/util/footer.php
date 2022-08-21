@@ -1,4 +1,9 @@
-<footer class="footer">
+<?php
+    include_once __dir__."/info.php";
+    require_once dirname(__DIR__,2).'/private/definations/dbFunctions.php';
+    require_once dirname(__DIR__,2).'/private/definations/generalFunctions.php';
+    $footer = '
+    <footer class="footer">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 col-md-3 col-lg-3">
@@ -6,43 +11,45 @@
                         <h4><span>About Us</span></h4>
                     </div>
                     <div class="widget_content">
-                        <p>I am Janak Patel. An Electronics Engineer by education, a Mechanical Engineer by profession and a Computer Engineer by passion. A traveler tries to find the final destination. This website is solely created to serve Learning purposes.</p>
+                        <p>'.
+                            $paraInfo.
+                        '</p>
                         <ul class="contact-details-alt">
-                            <li><i class="fa fa-map-marker"></i> <p><strong>Address</strong>: <a>177A Bleecker Street</a></p></li>
-                            <li><i class="fa fa-user"></i> <p><strong>Phone</strong>: <a href="tel:">212-970-4133</a></p></li>
-                            <li><i class="fa fa-envelope"></i> <p><strong>Email</strong>: <a href="mailto:">janak.patel.127.0.0.1@gmail.com</a></p></li>
+                            <li><i class="fa fa-map-marker"></i> <p><strong>Address</strong>: <a>'.
+                            $address.'
+                        </a></p></li>
+                            <li><i class="fa fa-user"></i> <p><strong>Phone</strong>: <a href="tel:">'.
+                            $phone.'
+                        </a></p></li>
+                            <li><i class="fa fa-envelope"></i> <p><strong>Email</strong>: <a href="mailto:">'.
+                            $email.'
+                        </a></p></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-3 col-lg-3">
                     <div class="widget_title">
                         <h4><span>Recent Posts</span></h4>
-                    </div>
+                    </div>';
+    $query = "SELECT `blog_id`,`blog_title`,`blog_create_date` FROM `blogs` ORDER BY `blog_id` DESC LIMIT 3";
+    $inputs = [];
+    $types = [];
+    $articles = runQuery($query,$inputs,$types);
 
-                    <?php
-                                require dirname(__DIR__,2).'/private/definations/dbFunctions.php';
-                                require dirname(__DIR__,2).'/private/definations/generalFunctions.php';
-                
-                                $query = "SELECT `blog_id`,`blog_title`,`blog_create_date` FROM `blogs` ORDER BY `blog_id` DESC LIMIT 4";
-                                $inputs = [];
-                                $types = [];
-                                $articles = runQuery($query,$inputs,$types);
+    $footer.='<div class="widget_content">'.
+        '<ul class="links">';
 
-                                echo'<div class="widget_content">'.
-                                    '<ul class="links">';
+    foreach ($articles as $article) {
+        $date = explode(" ",$article['blog_create_date'])[0];
+        [$Y,$M,$D] = explode("-",$date,3);
+        $date = intToMonthName($M).' '.$D.', '.$Y;
+        
+        $footer.='<li><a href="blog-post.php?blog_id='.$article['blog_id'].'">'.$article['blog_title'].'<span>'.$date.'</span></a></li>';
+    }
+    $footer.='</ul>'.
+    '</div>';
 
-                                foreach ($articles as $article) {
-                                    $date = explode(" ",$article['blog_create_date'])[0];
-                                    [$Y,$M,$D] = explode("-",$date,3);
-                                    $date = intToMonthName($M).' '.$D.', '.$Y;
-                                    
-                                    echo '<li><a href="blog-post.php?blog_id='.$article['blog_id'].'">'.$article['blog_title'].'<span>'.$date.'</span></a></li>';
-                                }
-                                echo '</ul>'.
-                                '</div>';
-                                
-                    ?>
-                </div>
+    $footer.='</div>
                 <div class="col-sm-6 col-md-3 col-lg-3">
                     <div class="widget_title">
                         <h4><span>Twitter</span></h4>
@@ -92,14 +99,15 @@
             <div class="col-sm-6 ">
                 <div class="footer_social">
                     <ul class="footbot_social">
-                        <li><a class="fb" href="#." data-placement="top" data-toggle="tooltip" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-                        <li><a class="twtr" href="#." data-placement="top" data-toggle="tooltip" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                        <li><a class="dribbble" href="#." data-placement="top" data-toggle="tooltip" title="Dribbble"><i class="fa fa-dribbble"></i></a></li>
-                        <li><a class="skype" href="#." data-placement="top" data-toggle="tooltip" title="Skype"><i class="fa fa-skype"></i></a></li>
-                        <li><a class="rss" href="#." data-placement="top" data-toggle="tooltip" title="RSS"><i class="fa fa-rss"></i></a></li>
+                        <li><a class="fb" href="'.$facebook.'" data-placement="top" data-toggle="tooltip" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                        <li><a class="twtr" href="'.$twitterAccount.'" data-placement="top" data-toggle="tooltip" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                        <li><a class="dribbble" href="'.$dribble.'" data-placement="top" data-toggle="tooltip" title="Dribbble"><i class="fa fa-dribbble"></i></a></li>
+                        <li><a class="skype" href="'.$skype.'" data-placement="top" data-toggle="tooltip" title="Skype"><i class="fa fa-skype"></i></a></li>
+                        <li><a class="rss" href="'.$rss.'" data-placement="top" data-toggle="tooltip" title="RSS"><i class="fa fa-rss"></i></a></li>
                     </ul>
                 </div>
             </div>
         </div>
 		</div>
-	</section>
+	</section>';
+    ?>
