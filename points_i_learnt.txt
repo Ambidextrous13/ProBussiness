@@ -1,3 +1,3 @@
-1. redirecting isnt working if we echo something before redirecting line
+1. redirecting will not work if we echo something before redirecting
 2. Detailed info on URI
 3. Heredoc

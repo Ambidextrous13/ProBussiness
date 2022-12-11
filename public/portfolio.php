@@ -1,3 +1,87 @@
+<?php
+    require_once dirname(__DIR__).'/private/definations/dbFunctions.php';
+    $rec_cat = 'all';
+    $projects = '';
+    $totalProjects = 0;
+    $perPageLimit = 4;
+    $pageNo = 1;
+
+    // Local functions ////////////////////////////////
+
+    function callAll($perPageLimit,$pageNo){
+        $totalProjects = runQuery("SELECT COUNT(`project_id`) FROM `projects`",[],[])[0]['COUNT(`project_id`)'];
+        $pageNo = pagePlz($perPageLimit,$totalProjects);
+        $start = $perPageLimit*($pageNo-1);
+        $projects = runQuery("SELECT * FROM `projects` LIMIT $start, $perPageLimit",[],[]);
+            if(!$projects){
+                header('Location: 404-page.php');
+            }else {
+                return [$totalProjects, $projects];
+            }
+    }
+
+    function pagePlz($perPageLimit,$totalProjects){
+        if (isset($_GET['page'])) {
+            $pageNo = $_GET['page'];
+            if ($pageNo  > ceil($totalProjects/$perPageLimit)) {
+                $pageNo = 1;
+            }
+            return $pageNo;
+        }else{
+            return 1;
+        }
+    }
+
+
+    $query = 'SELECT `category_id`,`category_name` FROM `categories_decode` WHERE `category_id` BETWEEN 100 AND 200';
+    $cats = runQuery($query,[],[]);
+
+
+    if (isset($_GET['cat'])) {
+        $rec_cat = $_GET['cat'];
+        $valid_cat = false;
+        $valid_id = null;
+        for ($i=0; $i < count($cats); $i++) { 
+            if ($cats[$i]['category_name'] == $rec_cat) {
+                $valid_cat = true;
+                $valid_id = $cats[$i]['category_id'];
+                break;
+            }
+        }
+        if ($valid_cat) {
+            $inserts = runQuery("SELECT `ids`,`count` FROM `categories_decode` WHERE `category_id` = $valid_id", [], [])[0];
+            $totalProjects = $inserts['count'];
+            $inserts = str_replace(' , ',' OR `project_id` = ',$inserts['ids']);
+            $projects = '';
+            if ($inserts == '') {
+                $projects = 'NOTHING TO SHOW!!';
+            }else {
+                $pageNo = pagePlz($perPageLimit,$totalProjects);
+                $start = $perPageLimit*($pageNo-1);
+                $projects = runQuery("SELECT * FROM `projects` WHERE `project_id` = $inserts LIMIT $start , $perPageLimit",[],[]);
+                if(!$projects){
+                    header('Location: 404-page.php');
+                }
+            }
+        }elseif($rec_cat == 'all'){
+            [$totalProjects, $projects] = callAll($perPageLimit,$pageNo);
+        }else {
+            header('Location: 404-page.php');
+        }
+    }elseif ($rec_cat == 'all') {
+        [$totalProjects, $projects] = callAll($perPageLimit,$pageNo);
+        
+    }else {
+        header('Location: 404-page.php');
+    }
+
+    $pageNo = pagePlz($perPageLimit,$totalProjects);
+   
+?>
+
+
+
+
 <!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie ie8" class="no-js" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
@@ -5,7 +89,7 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>ProBusiness Responsive Multipurpose Template</title>
+    <title>ProBusiness Portfolio</title>
     <meta name="description" content="">
 
     <!-- CSS FILES -->
@@ -40,117 +124,109 @@
                 <div class="col-lg-12 isotope">
                     <!--begin portfolio filter -->
                     <ul id="filter">
-                        <li data-filter="*" class="selected"><a href="#">All</a></li>
-                        <li data-filter=".responsive"><a href="#">Responsive</a></li>
-                        <li data-filter=".mobile"><a href="#">Mobile</a></li>
-                        <li data-filter=".branding"><a href="#">Branding</a></li>
+                        <?php
+                        $class = '';
+                            if ($rec_cat == 'all') {
+                                $class = 'class="selected"';
+                            }
+                            echo' <li '.$class.'><a href="portfolio.php">All</a></li>';
+                            foreach ($cats as $cat) {
+                                $class = '';
+                                if ($rec_cat == $cat['category_name']) {
+                                    $class = 'class="selected"';
+                                }
+                                echo<<<STR
+                                    <li $class><a href="?cat={$cat['category_name']}">{$cat['category_name']}</a></li>
+                                    STR;
+                            }
+                        ?>
                     </ul>
                     <!--end portfolio filter -->
 
                     <!--begin portfolio_masonry -->
                     <div class="mixed-container masonry_wrapper">
-                        <div class="item mobile">
-                            <figure class="touching effect-bubba">
-                                <img src="images/portfolio/full/portfolio_7.png" alt="" class="img-responsive">
 
-                                <div class="option">
-                                    <a href="portfolio_single.html" class="fa fa-link"></a>
-                                    <a href="images/portfolio/full/portfolio_7.png" class="fa fa-search mfp-image"></a>
-                                </div>
-                                <figcaption class="item-description">
-                                    <h5>Touch and Swipe</h5>
-                                    <p>Mobile</p>
-                                </figcaption>
-                            </figure>
-                        </div>
+                        <?php
+                            foreach ($projects as $project) {
+                                $img = explode(' , ',$project['project_img']);
+                                // $img = '';
+                                // print_r($img);
 
-                        <div class="item branding">
-                            <figure class="touching effect-bubba">
-                                <img src="images/portfolio/portfolio_9.png" alt="" class="img-responsive">
-
-                                <div class="option">
-                                    <a href="portfolio_single.html" class="fa fa-link"></a>
-                                    <a href="images/portfolio/full/portfolio_1.png" class="fa fa-search mfp-image"></a>
-                                </div>
-                                <figcaption class="item-description">
-                                    <h5>Touch and Swipe</h5>
-                                    <p>Branding</p>
-                                </figcaption>
-                            </figure>
-                        </div>
-
-                        <div class="item branding">
-                            <figure class="touching effect-bubba">
-                                <img src="images/portfolio/full/portfolio_4.png" alt="" class="img-responsive">
-
-                                <div class="option">
-                                    <a href="portfolio_single.html" class="fa fa-link"></a>
-                                    <a href="images/portfolio/full/portfolio_4.png" class="fa fa-search mfp-image"></a>
-                                </div>
-                                <figcaption class="item-description">
-                                    <h5>Touch and Swipe</h5>
-                                    <p>Branding</p>
-                                </figcaption>
-                            </figure>
-                        </div>
-
-                        <div class="item responsive">
-                            <figure class="touching effect-bubba">
-                                <img src="images/portfolio/full/portfolio_8.png" alt="" class="img-responsive">
-
-                                <div class="option">
-                                    <a href="portfolio_single.html" class="fa fa-link"></a>
-                                    <a href="images/portfolio/full/portfolio_8.png" class="fa fa-search mfp-image"></a>
-                                </div>
-                                <figcaption class="item-description">
-                                    <h5>Touch and Swipe</h5>
-                                    <p>Responsive</p>
-                                </figcaption>
-                            </figure>
-                        </div>
-
-                        <div class="item">
-                            <figure class="touching effect-bubba">
-                                <img src="images/portfolio/portfolio_1_3.png" alt="" class="img-responsive">
-
-                                <div class="option">
-                                    <a href="portfolio_single.html" class="fa fa-link"></a>
-                                    <a href="images/portfolio/full/portfolio_6.png" class="fa fa-search mfp-image"></a>
-                                </div>
-                                <figcaption class="item-description">
-                                    <h5>Touch and Swipe</h5>
-                                    <p>Technology</p>
-                                </figcaption>
-                            </figure>
-                        </div>
-
-                        <div class="item responsive">
-                            <figure class="touching effect-bubba">
-                                <img src="images/portfolio/full/portfolio_2.png" alt="" class="img-responsive">
-
-                                <div class="option">
-                                    <a href="portfolio_single.html" class="fa fa-link"></a>
-                                    <a href="images/portfolio/full/portfolio_2.png" class="fa fa-search mfp-image"></a>
-                                </div>
-                                <figcaption class="item-description">
-                                    <h5>Touch and Swipe</h5>
-                                    <p>Responsive</p>
-                                </figcaption>
-                            </figure>
-                       </div>
-                    </div>
+                                if($img[0]==''){
+                                    $rand = rand(1,4);
+                                    $pair = [];
+                                    switch ($rand) {
+                                        case 1:
+                                        $pair = ['images/portfolio/full/portfolio_7.png','images/portfolio/full/portfolio_7.png'];break;
+                                        case 2:
+                                        $pair = ['images/portfolio/portfolio_9.png','images/portfolio/full/portfolio_1.png'];break;
+                                        case 3:
+                                        $pair = ['images/portfolio/full/portfolio_4.png','images/portfolio/full/portfolio_4.png'];break;
+                                        case 4:
+                                        $pair = ['images/portfolio/portfolio_1_3.png','images/portfolio/full/portfolio_6.png'];break;
+                                    }
+                                }else {
+                                    $pair = [$img[0],$img[0]];
+                                }
+                                
+                                echo<<<STR
+                                            <div id="{$project['project_id']}" class="item portfolio-jan">
+                                                <figure class="touching effect-bubba">
+                                                    <img src="{$pair[0]}" alt="" class="img-responsive">
+                    
+                                                    <div class="option">
+                                                        <a href="portfolio_single.php?id={$project['project_id']}" class="fa fa-link"></a>
+                                                        <a href="{$pair[1]}" class="fa fa-search mfp-image"></a>
+                                                    </div>
+                                                    <figcaption class="item-description">
+                                                        <h5>{$project['project_name']}</h5>
+                                                        <p>{$project['project_company']}</p>
+                                                    </figcaption>
+                                                </figure>
+                                            </div>
+                                    STR;    
+                            }
+                        ?>
                     <!--end portfolio_masonry -->
                 </div>
                 <!--end isotope -->
                 <div class="col-sm-12 text-center">
                     <ul class="pagination">
-                        <li><a href="#">&laquo;</a></li>
-                        <li class="active"><a href="#">1</a></li>
+                        
+                        <?php
+                        $maxPages = ceil($totalProjects/$perPageLimit);
+                        
+                        if ($pageNo > 1) {
+                            $URI = "portfolio.php?cat={$rec_cat}&page=".($pageNo-1);
+                            echo '<li><a href="'.$URI.'">&laquo;</a></li>';
+                        }else{
+                            echo '<li style="cursor : not-allowed"><a>&laquo;</a></li>';
+                        }
+
+                        for ($i=1; $i <= $maxPages; $i++) { 
+                            $URI = "portfolio.php?cat={$rec_cat}&page={$i}";
+                            $class = '';
+                            if($pageNo == $i){
+                                $class = 'class="active"';
+                            }
+                            echo <<<STR
+                                     <li $class><a href="{$URI}">$i</a></li>
+                                STR;
+                        } 
+
+                        if ($pageNo < $maxPages) {
+                            $URI = "portfolio.php?cat={$rec_cat}&page=".($pageNo+1);
+                            echo '<li><a href="'.$URI.'">&raquo;</a></li>';
+                        }else{
+                            echo '<li style="cursor : not-allowed"><a>&raquo;</a></li>';
+                        }
+                        ?>
+                        <!-- <li class="active"><a href="#">1</a></li>
                         <li><a href="#">2</a></li>
                         <li><a href="#">3</a></li>
                         <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&raquo;</a></li>
+                        <li><a href="#">5</a></li> -->
+                        <!-- <li><a href="#">&raquo;</a></li> -->
                     </ul>
                 </div>
             </div>
@@ -185,6 +261,22 @@
 
 <script src="js/main.js"></script>
 <script>
+    const projects = document.querySelectorAll('.portfolio-jan');
+    for(const project of projects){
+        project.addEventListener('click',e=>{
+            let target = e.target;
+            let id = 0
+            while (true) {
+                if (target.classList.contains('portfolio-jan')) {
+                    id = target.id;
+                    break
+                }
+                target = target.parentElement;
+            }
+            
+            window.location.href = 'portfolio_single.php?id='+id;
+        })
+    }
     (function ($) {
         var $container = $('.masonry_wrapper'),
                 colWidth = function () {

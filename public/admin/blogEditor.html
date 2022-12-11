@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css\blogEditor.css">
+    <script src="js/blogEditor.js" defer></script>
+    <title>Edit Blog</title>
+</head>
+
+<body>
+    <div class="main-body">
+        <div class="head">
+            <div class="title">
+                <h2>Edit Blog</h2>
+            </div>
+            <div class="command-palette">
+                <div class="left-palette">
+                    <div class="top">
+                        <div class="font-family">
+                            <p id="_fontface" class="font-select font clickable">Montserrat</p>
+                            <div class="drop-down"></div>
+                        </div>
+                        <div id="_fontsize" class="font-size clickable">
+                            <p  class="font-number font">22</p>
+                            <div class="drop-down"></div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div id="_bold" class="bold bg clickable">
+                            <div class="bold-logo logo"></div>
+                        </div>
+                        <div id="_italic" class="italic bg clickable">
+                            <div class="italic-logo logo"></div>
+                        </div>
+                        <div id="_underline"  class="underline bg clickable">
+                            <div class="underline-logo logo"></div>
+                        </div>
+                        <div id="_strikeThrough"  class="strike-through bg clickable">
+                            <div class="strike-through-logo logo"></div>
+                        </div>
+                        <div id="_superscript"  class="super-script bg clickable">
+                            <div class="super-sript-logo logo"></div>
+                        </div>
+                        <div id="_sunscript"  class="sub-script bg clickable">
+                            <div class="sub-script-logo logo"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="middle-palette">
+                    <div class="top">
+                        <div id="_indent" class="insert-indent logo"></div>
+                        <div id="_quote" class="insert-qoute logo"></div>
+                        <div id="_table" class="insert-table logo"></div>
+                    </div>
+                    <div class="bottom">
+                        <div id="_code"  class="insert-code logo"></div>
+                        <div id="_image"  class="insert-image logo"></div>
+                        <div id="_link"  class="insert-link logo"></div>
+                    </div>
+                </div>
+                <div class="right-palette">
+                    <div class="top">
+                        <div id="_alignleft" class="text-align-left logo"></div>
+                        <div id="_alignmid" class="text-align-middle logo"></div>
+                        <div id="_alignright" class="text-align-right logo"></div>
+                        <div id="_alignjustify" class="text-align-justify logo"></div>
+                    </div>
+                    <div class="bottom">
+                        <div id="_fontcolor" class="font-color logo bg">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 0 448 512">
+                                <path class="text-color" d="M254 52.8C249.3 40.3 237.3 32 224 32s-25.3 8.3-30 20.8L57.8 416H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32h-1.8l18-48H303.8l18 48H320c-17.7 0-32 14.3-32 32s14.3 32 32 32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H390.2L254 52.8zM279.8 304H168.2L224 155.1 279.8 304z"/>
+                            </svg>
+                        </div>
+                        <div id="_bgcolor" class="bg-color logo bg">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 0 576 512">
+                                <path class="highlight-color" d="M41.4 9.4C53.9-3.1 74.1-3.1 86.6 9.4L168 90.7l53.1-53.1c28.1-28.1 73.7-28.1 101.8 0L474.3 189.1c28.1 28.1 28.1 73.7 0 101.8L283.9 481.4c-37.5 37.5-98.3 37.5-135.8 0L30.6 363.9c-37.5-37.5-37.5-98.3 0-135.8L122.7 136 41.4 54.6c-12.5-12.5-12.5-32.8 0-45.3zm176 221.3L168 181.3 75.9 273.4c-4.2 4.2-7 9.3-8.4 14.6H386.7l42.3-42.3c3.1-3.1 3.1-8.2 0-11.3L277.7 82.9c-3.1-3.1-8.2-3.1-11.3 0L213.3 136l49.4 49.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0zM512 512c-35.3 0-64-28.7-64-64c0-25.2 32.6-79.6 51.2-108.7c6-9.4 19.5-9.4 25.5 0C543.4 368.4 576 422.8 576 448c0 35.3-28.7 64-64 64z"/>
+                            </svg>
+                        </div>
+                        <div id="listol" class="ol-list logo"></div>
+                        <div id="listul" class="ul-list logo"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="editor" class="editor">
+            <p id="text-area" name="" contenteditable="true" class="_editable">
+    
+            </p>
+        </div>
+        <div class="inputs">
+            <div class="clear ip-btn"><p>Clear</p></div>
+            <div class="done ip-btn"><p>Done</p></div>
+        </div>
+    </div>
+</body>
+
+</html>

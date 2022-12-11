@@ -11,12 +11,19 @@
         }  
     }
     
-    function runQuery($query,$arg,$type){
+    function runQuery($query,$arg,$type,$exclusive=false){
         if ($query != '') {
             $dbconn = dbConnect();
             $sql = $dbconn->prepare($query);
-            for ($i=1; $i <= count($arg); $i++) { 
-                $sql->bindParam($i,$arg[$i-1],$type[$i-1]);    
+            if ($exclusive) {
+                for ($i=0; $i < count($arg[0]); $i++) { 
+                    $sql->bindParam($arg[0][$i],$arg[1][$i],$type[$i]); 
+                }
+            }
+            else{
+                for ($i=1; $i <= count($arg); $i++) { 
+                    $sql->bindParam($i,$arg[$i-1],$type[$i-1]);    
+                }
             }
             $sql->execute();
             $dbconn=null;

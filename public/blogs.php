@@ -29,49 +29,86 @@
 <body>
 	<!--Start Header-->
 
-	<?php
-// //////////////////////////////////////////////////////////////////////////// PAge rank and Page info
+<?php
+require dirname(__DIR__) . '/private/definations/dbFunctions.php';
+require dirname(__DIR__) . '/private/definations/generalFunctions.php';
+// /////////////////////////////////////////////////////////////////////////////// Local Functions
+	function data($query, $arguments, $types, $exclusive = false){
+		global $page_rank,$blogs_per_page;
+		$start_no = ($page_rank-1)*$blogs_per_page;
+		$query .= " LIMIT $start_no,$blogs_per_page";
+		return runQuery($query, $arguments, $types, $exclusive);
+	} 
+
+
+// //////////////////////////////////////////////////////////////////////////// Page rank and Page info
 	$pageName = 'Blogs';
-	$blogs_per_page = 5;
+	$blogs_per_page = 2;
 	$page_rank = 1;
 	if (isset($_GET['page'])) {
 		$page_rank = intval($_GET['page']);
 	} else {
 		$page_rank = 1;
 	}
-
+	$max_blogs = intval(runQuery("SELECT COUNT('blog_id') c FROM `blogs` ",[],[])[0]['c']);
 // /////////////////////////////////////////////////////////////////////////////// Query Selection
-	require dirname(__DIR__) . '/private/definations/dbFunctions.php';
-	require dirname(__DIR__) . '/private/definations/generalFunctions.php';
 	$search_id = 0;
 	$query;
 	$title = '';
-	if (isset($_GET['id']) && isset($_GET['name'])) {
+	$data;
+	if (isset($_GET['id']) && isset($_GET['name'])) {  ////////////////////////// category ID and category name
 		$search_id = intval($_GET['id']);
 		$title = $_GET['name'];
-		$cats = implode(" OR `blog_id`= ",explode(' , ',runQuery("SELECT `ids` FROM `categories_decode` WHERE `category_id` = $search_id", [], [])[0]['ids'])); // explode to save in array  and implode to covert array into string with glue resluts in a perfect query like `id` = 1 OR `id`=2 OR ..... this can also achieved by just using str_eplace , with OR `id` =
+		$cats = implode(" OR `blog_id`= ",explode(' , ',runQuery("SELECT `ids` FROM `categories_decode` WHERE `category_id` = ?", [$search_id], [PDO::PARAM_STR])[0]['ids'])); // explode to save in array  and implode to covert array into string with glue resluts in a perfect query like `id` = 1 OR `id`=2 OR ..... this can also achieved by just using str_eplace , with OR `id` =
 		if ($cats) {
-			$query = "SELECT * FROM `blogs` where `blog_id` = $cats";
+			$query = "SELECT * FROM `blogs` where `blog_id` = ?";
+			$data = data($query,[$cats],[PDO::PARAM_STR]);
+
+			$query_for_max = "SELECT COUNT('blog_id') c FROM `blogs` where `blog_id` = ?";
+			$max_blogs = intval(runQuery($query_for_max,[$cats],[PDO::PARAM_STR])[0]['c']);
 		} else {
-			$query = '';
+			$query = "SELECT * FROM `blogs`";
+			$data = data($query,[],[]);
 		}
+
 	} elseif (isset($_GET['search'])) {
 		$title = $_GET['search'];
-		$query = "SELECT * FROM `blogs` where `blog_desc` LIKE '%$title%' OR `blog_title` LIKE '%$title%'";
-	} else {
+		$query = "SELECT * FROM `blogs` where `blog_desc` LIKE :search1 OR `blog_title` LIKE :search2";
+		$ref = "%$title%";
+		$arg1 = [[':search1',':search2'],[$ref,$ref]];
+		$arg2 = [PDO::PARAM_STR,PDO::PARAM_STR];
+		$data = data($query,$arg1,$arg2,true);
+
+		$query_for_max = "SELECT COUNT('blog_id') c FROM `blogs` where `blog_desc` LIKE :search1 OR `blog_title` LIKE :search2";
+		$max_blogs = intval(runQuery($query_for_max,$arg1,$arg2,true)[0]['c']);
+
+	} elseif(isset($_GET['m']) && isset($_GET['y'])){
+		$y = $_GET['y'];
+		$y = 1===strlen($_GET['y'])?'0'.$y:$y;
+		$m = $_GET['m'];
+		$m = 1===strlen($_GET['m'])?'0'.$m:$m;
+		$m_ = $m+1;
+		$m_ = 1===strlen($m_)?'0'.$m_:$m_;
+		$d1 = $y.'-'.$m.'-'.'01  00:00:00';
+		$d2 = $y.'-'.$m_.'-'.'01  00:00:00';
+		$query = "SELECT * FROM `blogs` WHERE `blog_create_date` BETWEEN :date1 AND :date2";
+		$data = data($query,[[':date1',':date2'],[$d1,$d2]],[PDO::PARAM_STR,PDO::PARAM_STR],true);
+
+		$query_for_max = "SELECT COUNT('blog_id') c FROM `blogs` where `blog_create_date` BETWEEN :date1 AND :date2";
+		$max_blogs = intval(runQuery($query_for_max,[[':date1',':date2'],[$d1,$d2]],[PDO::PARAM_STR,PDO::PARAM_STR],true)[0]['c']);
+
+	}else {
 		$query = "SELECT * FROM `blogs`";
+		$data = data($query,[],[]);
 	}
-	$start_no = ($page_rank-1)*$blogs_per_page;
-	$query .= " LIMIT $start_no,$blogs_per_page";
-	$args = [];
-	$type = [];
-	$data =  runQuery($query, $args, $type);
-	$max_blogs = intval(runQuery("SELECT COUNT('blog_id') c FROM `blogs` ",[],[])[0]['c']);
 // //////////////////////////////////////////////////////////////////////////////////////max pages calc
 	$max_pages = ceil($max_blogs /$blogs_per_page);
 	if ($page_rank < 1 || $page_rank > $max_pages) {
 		header("location: blogs.php?page=1");
 	}
+
+
+	// $data = data($query,[],[]);
 // //////////////////////////////////////////////////////////////////////////header
 	require __DIR__ . '/util/header.php';
 	echo $header;
@@ -178,9 +215,6 @@
 
 								?>
 
-								<!-- <li><a href="#">3</a></li>
-											<li><a href="#">4</a></li>
-											<li><a href="#">5</a></li> -->
 							</ul>
 						</div>
 

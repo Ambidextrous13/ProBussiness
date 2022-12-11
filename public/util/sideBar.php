@@ -21,7 +21,7 @@
 
                 <?php
                 // Category widget
-                $query5 = "SELECT `category_id`,`category_name`,`count` FROM `categories_decode` ORDER BY `count` DESC LIMIT 6";
+                $query5 = "SELECT `category_id`,`category_name`,`count` FROM `categories_decode` WHERE `category_id`<100 ORDER BY `count` DESC LIMIT 6";
                 foreach (runQuery($query5, [], []) as $category) {
                     echo '<li><a href="blogs.php?id=' . $category['category_id'] . '&name=' . $category['category_name'] . '">' . $category['category_name'] . ' (' . $category['count'] . ')</a></li>';
                 }

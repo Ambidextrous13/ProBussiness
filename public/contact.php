@@ -48,7 +48,8 @@
 						<div class="dividerHeading">
 							<h4><span>Get in Touch</span></h4>
 						</div>
-						<p>Vidit nulla errem ea mea. Dolore apeirian insolens mea ut, indoctum consequuntur hasi. No aeque dictas dissenti as tusu, sumo quodsi fuisset mea in. Ea nobis populo interesset cum, ne sit quis elit officiis, min im tempor iracundia sit anet. Facer falli aliquam nec te. In eirmod utamur offendit vis, posidonium instructior sed te.</p>
+						<p>For general queries, sales and partnerships please drop a message any time and we will reach you.</p>
+                        <p>Or you can feel this form to contact Janak For Interview, Thnak you</p>
 							
 						<div class="alert alert-success hidden alert-dismissable" id="contactSuccess">
 						  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

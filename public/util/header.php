@@ -9,7 +9,7 @@ $header = '<header id="header">
                     <span class="hidden-sm"><i class="fa fa-envelope"></i>Email: <a href="mailto:"  style = "text-decoration : none; color : #fff">'.$email.'</a></span>
                 </div>
                 <div class="col-lg-5">
-                    <ul class="dropdown-items clearfix">
+                    <!-- <ul class="dropdown-items clearfix">
                         <li>
                             <div class="site-language">
                                 <div class="dropdown">
@@ -39,7 +39,7 @@ $header = '<header id="header">
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div>  
                         </li>
                         <li>
                             <div class="my-account">
@@ -119,7 +119,7 @@ $header = '<header id="header">
                                 </div>
                             </div>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
 
@@ -151,13 +151,6 @@ $header = '<header id="header">
 
                                <li '; if($pageName=="Home"){$header .= 'class="active"';} $header.='><a href="index.php"><span class="data-hover" data-hover="home">Home</span></a></li>
    
-                               <li '; if($pageName == "Shop"|| $pageName == "Cart"){$header.= 'class="active"';} $header.='><a href="#"><span class="data-hover"data-hover="shop">Shop</span></a>
-                                   <ul class="dropdown-menu">
-                                       <li><a href="shop.php">Shop</a></li>
-                                       <li><a href="cart.php">Cart</a></li>
-                                   </ul>
-                               </li>
-   
                                <li '; if($pageName == "Blog"|| $pageName == "Blogs"){$header.= 'class="active"';}$header.='><a href="blogs.php"><span class="data-hover" data-hover="blog">Blog</span></a></li>
    
                                <li '; if($pageName == "Contact"){$header.= 'class="active"';}$header.='><a href="contact.php"> <span class="data-hover" data-hover="contact">Contact</span></a></li>
@@ -187,7 +180,7 @@ $header = '<header id="header">
    
                                <p class="slide-heading FromTop">Trusted by MNCs</p><br/>
    
-                               <p class="sub-line FromBottom">Goolge, Facebook, PayPal</p><br/>
+                               <p class="sub-line FromBottom">Goolge, Facedook, PeyPal</p><br/>
    
                                <a href="downloadable\CV_CS.pdf" class="slider-read FromLeft">Download Brochure</a>
                            </div>
@@ -198,9 +191,9 @@ $header = '<header id="header">
                    <li class="slide2">
                        <div class="container">
                            <div class="slide flex_caption1">
-                               <p class="slide-heading FromTop">ProBusiness is our theme</p><br/>
+                               <p class="slide-heading FromTop">ProBusiness</p><br/>
    
-                               <p class="sub-line FromRight">We also have arrow for dark mode  in our quiver</p><br/>
+                               <p class="sub-line FromRight">We do have dark mode arrow in our quiver</p><br/>
    
                                <a href="downloadable\CV_CS.pdf" class="slider-read FromLeft">Download Brochure</a>
    
@@ -244,3 +237,12 @@ $header = '<header id="header">
         }
         $header .= "</header>";
     ?>
+
+    <!-- shop   
+    <li '; if($pageName == "Shop"|| $pageName == "Cart"){$header.= 'class="active"';} $header.='><a href="#"><span class="data-hover"data-hover="shop">Shop</span></a>
+                                   <ul class="dropdown-menu">
+                                       <li><a href="shop.php">Shop</a></li>
+                                       <li><a href="cart.php">Cart</a></li>
+                                   </ul>
+                               </li>
+                               -->

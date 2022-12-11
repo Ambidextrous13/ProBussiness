@@ -200,18 +200,18 @@
             });
 
             /* ---- Filtering ----- */
-            jQuery('#filter li').click(function(){
-                var $this = jQuery(this);
-                if ( $this.hasClass('selected') ) {
-                    return false;
-                } else {
-                    jQuery('#filter .selected').removeClass('selected');
-                    var selector = $this.attr('data-filter');
-                    $this.parent().next().isotope({ filter: selector });
-                    $this.addClass('selected');
-                    return false;
-                }
-            });
+            // jQuery('#filter li').click(function(){
+            //     var $this = jQuery(this);
+            //     if ( $this.hasClass('selected') ) {
+            //         return false;
+            //     } else {
+            //         jQuery('#filter .selected').removeClass('selected');
+            //         var selector = $this.attr('data-filter');
+            //         $this.parent().next().isotope({ filter: selector });
+            //         $this.addClass('selected');
+            //         return false;
+            //     }
+            // });
         }
 
 

@@ -1,10 +1,25 @@
+<?php
+	require_once dirname(__DIR__).'/private/definations/dbFunctions.php';
+
+	if (isset($_GET['id'])) {
+		$project_id = $_GET['id'];
+		$project = runQuery("SELECT * FROM `projects` WHERE `project_id`=?",[$project_id],[PDO::PARAM_STR])[0];
+	// print_r($project);
+		if (!$project) {
+			header('Location: 404-page.php');
+		}
+	}
+?>
+
 <!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie ie8" class="no-js" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Portfolio Single - ProBusiness Responsive Multipurpose Template</title>
+	<title><?php
+		echo $project['project_name'];
+	?></title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
@@ -28,6 +43,16 @@
     $pageName = 'Portfolio';
     require __DIR__.'/util/header.php'; 
 	echo $header;
+
+	//preprocess
+	require_once dirname(__DIR__).'/private/definations/generalFunctions.php';
+	$_ = explode('-',$project['project_release_date']);
+	$date = $_[2].' '.intToMonthName($_[1]).' '.$_[0];
+	$cats = '';
+	foreach (runQuery('SELECT `category_name` FROM `categories_decode` WHERE `category_id`='.str_replace(' , ' , ' OR `category_id`=',$project['project_category']),[],[]) as $row => $cat){
+		$cats .= $cat['category_name'];
+		$cats .= ', ';
+	}
 ?>
 <!--End Header-->
 	
@@ -40,8 +65,16 @@
 						<!--Project Details Page-->
 						<div class="porDetCarousel">
 							<div class="carousel-content">
-								<img class="carousel-item" src="images/portfolio/portfolio_slider1.png" alt="">
-								<img class="carousel-item" src="images/portfolio/portfolio_slider2.png" alt="">
+								<?php
+									$imgs = explode(' , ',$project['project_img']);
+									foreach ($imgs as $img) {
+										echo <<<STR
+											<img class="carousel-item" src="$img" alt="">";
+											STR; //img size = 700*476
+									}
+								?>
+								
+								<img class="carousel-item" src="images/portfolio/portfolio_slider2.png" alt=""> 
 								<img class="carousel-item" src="images/portfolio/portfolio_slider3.png" alt="">
 							</div>
 						</div>
@@ -52,25 +85,27 @@
 							<div class="widget_title">
 								<h4><span>Project Descriptions</span></h4>
 							</div>
-
-							<p>Lorem ipsum dolor sit amet, consectetur adip, sed do eiusmod tempor incididunt ut aut reiciendise voluptat maiores alias aut et perferendis doloribus asperiores ut labore.</p>
-							<p> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							<div style="text-align: justify;">
+							<?php
+								echo $project['project_desc'];
+							?> 
+							</div>
 						</div>
 						<div class="project_details">
 							<div class="widget_title">
 								<h4><span>Project Details</span></h4>
 							</div>
 							<ul class="details">
-								<li><span>Client :</span>Louis</li>
-								<li><span>Company :</span> Rain Technologies inc.</li>
-								<li><span>Category :</span> Web Design, Photography</li>
-								<li><span>Date :</span> 05 September 2015</li>
-								<li><span>Project URL :</span> <a href="#">www.yahoobaba.net</a></li>
+								<li><span>Client :</span> <?php echo $project['project_client']; ?> </li>
+								<li><span>Company :</span><?php echo $project['project_client']; ?></li>
+								<li><span>Category :</span><?php echo $cats ?></li>
+								<li><span>Date :</span> <?php echo $date; ?></li>
+								<li><span>Project URL :</span> <a href="#"><?php echo $project['project_url']; ?></a></li>
 							</ul>
 						</div>
 					</div>
 				</div>
-
+				
                 <section class="latest_work">
                     <div class="container">
                         <div class="row sub_content">
@@ -79,22 +114,35 @@
                                     <h4><span>Recent Work</span></h4>
                                 </div>
                                 <div id="recent-work-slider" class="owl-carousel">
-                                    <div class="recent-item box">
 
-                                        <figure class="touching effect-bubba">
-                                            <img src="images/portfolio/portfolio_1.png" class="img-responsive" alt=""/>
+									<?php
+										$recentProjects = runQuery("SELECT * FROM `projects` ORDER BY `project_id` LIMIT 8",[],[]);
+										foreach ($recentProjects as $row) {
+											$img = explode(' , ',$row['project_img'])[0];
+											if ($img=='') {
+												$img = "images/portfolio/portfolio_2.png";
+											}
+											echo <<<STR
+													<div  id="{$row['project_id']}" class="recent-item box portfolio-jan">
+														<figure class="touching effect-bubba">
+															<img src="$img" class="img-responsive" alt=""/>
+															<div class="option">
+																<a href="portfolio_single.php?id={$row['project_id']}" class="fa fa-link"></a>
+																<a href="{$row['project_url']}" class="fa fa-search mfp-image"></a>
+															</div>
+															<figcaption class="item-description">
+																<h5>{$row['project_name']}</h5>
+																<p>{$row['project_company']}</p>
+															</figcaption>
+														</figure>
+													</div>
+												STR;
+										}
+									?>
 
-                                            <div class="option">
-                                                <a href="portfolio_single.html" class="fa fa-link"></a>
-                                                <a href="images/portfolio/full/portfolio_1.png" class="fa fa-search mfp-image"></a>
-                                            </div>
-                                            <figcaption class="item-description">
-                                                <h5>Touch and Swipe</h5>
-                                                <p>Mobile</p>
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                    <div class="recent-item box">
+
+                                    
+                                    <!-- <div class="recent-item box">
                                         <figure class="touching effect-bubba">
                                             <img src="images/portfolio/portfolio_2.png" class="img-responsive" alt=""/>
 
@@ -191,7 +239,7 @@
                                                 <p>Mobile</p>
                                             </figcaption>
                                         </figure>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -226,6 +274,22 @@
 
 
 	<script type="text/javascript">
+		const projects = document.querySelectorAll('.portfolio-jan');
+		for(const project of projects){
+			project.addEventListener('click',e=>{
+				let target = e.target;
+				let id = 0
+				while (true) {
+					if (target.classList.contains('portfolio-jan')) {
+						id = target.id;
+						break
+					}
+					target = target.parentElement;
+				}
+				window.location.href = 'portfolio_single.php?id='+id;
+			})
+		}
+
 		$(document).ready(function() {
 			$.fn.carousel = function(op) {
 				var op, ui = {};

@@ -41,10 +41,9 @@
 							<div class="dividerHeading">
 								<h4><span>Who we are?</span></h4>
 							</div>
-								<img class="left_img img-thumbnail" src="images/about_1.png" alt="about img">
-                            <p>Veos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum. </p>
-							<p>Donec rutrum erat non arcu gravida porttitor. Nunc et magna nisi. Lore aliquam at erat in lorem purus aliquet mollis. Fusce elementum velit vel dolor iaculis egestas. Maecenas ut nulla quis eros scelerisque posuere vel vitae nibh eros scelerisque. </p>
-							<p>Fusce lacinia tempor malesuada. Ut lacus sapien, placerat a ornare nec, elementum sit amet felis. Maecenas pretium lorem hendrerit eros sagittis fermentum. Donec in ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus. Nulla eu mi magna. Etiam suscipit commodo ad gravida. Cras suscipit, quam vitae adipiscing faucibus, risus nibh laoreet odio, a porttitor metus.</p>
+								<img class="left_img img-thumbnail" src="images\teams\totalTeam 380x228.jpg" alt="about img">
+                                <p style="text-align : justify">For more than a decade, Probusiness has worked with a variety of foreign companies from sectors as diverse as retail, software development, health care, insurance and many others to help them expand globally. This means that whichever service you might possibly be looking for whether it’s customer support or creating a novel mobile app – the company offers the complete package including strategic planning, development, programming and much more so client satisfaction always remains at an all-time high.</p>
+                                <br><p style="text-align : justify">Need a high-quality, reliable one-stop to deliver the project on time and within budget? Look no further as we at Probusiness are well-known for delivering consistently high-standard work. Whether it be creating your online presence from scratch or just adding that extra special something, our team hired from around the world will put you and your company in the spotlight!</p>
 							
 						</div>
 						
@@ -52,7 +51,7 @@
 							<div class="dividerHeading">
 								<h4><span>Our Skills</span></h4>
 							</div>
-							<p>Nunc et magna nisi. lore Aliquam at erat in lorem purus aliquet mollis. Fusce elementum velit vel dolor iaculis. </p>
+							<p>The technological world is moving at a very fast pace and we have always kept up with it. Our top-notch developers are philomaths and have proven their expertise in these technologies.</p>
 							<ul class="progress-skill-bar">
 								<li>
 									<span class="lable">70%</span>
@@ -106,79 +105,27 @@
 
 						</div>
 						<ul class="list_style circle">
-							<li><a href="#"> Donec convallis, metus nec tempus aliquet</a></li>
-							<li><a href="#"> Aenean commodo ligula eget dolor</a></li>
-							<li><a href="#"> Cum sociis natoque penatibus mag dis parturient</a></li>
-							<li><a href="#"> Lorem ipsum dolor sit amet cons adipiscing</a></li>
-							<li><a href="#"> Accumsan vulputate faucibus turpis tortor dictum</a></li>
-							<li><a href="#"> Nullam ultrices eros accumsan vulputate faucibus</a></li>
-							<li><a href="#"> Nunc aliquet tincidunt metus sit amet</a></li>
+							<li><a> The customer-first approach</a></li>
+							<li><a> World-class solutions and services</a></li>
+							<li><a> High Morals & Ethics</a></li>
+							<li><a> Value idea over hierarchy</a></li>
+							<li><a> Respect for individual</a></li>
+							<li><a> Doing best in what we do</a></li>
+							<li><a> Honoring every commitment</a></li>
 						</ul>
 					</div>
 					
 					<!-- TESTIMONIALS -->
-					<div class="col-lg-6 col-md-6 col-sm-6">
-						<div class="dividerHeading">
-							<h4><span>What Client's Say</span></h4>
+                    <?php
+                        require_once __dir__.'/util/testimonials.php';
+                    ?>
+				</div>
 
-						</div>
-						<div id="testimonial-carousel" class="testimonial carousel slide">
-							<div class="carousel-inner">
-								<div class="active item">
-									<div class="testimonial-item">
-										<div class="icon"><i class="fa fa-quote-right"></i></div>
-										<blockquote>
-											<p>Donec convallis, metus nec tempus aliquet, nunc metus adipiscing leo, a lobortis nisi dui ut odio. Nullam ultrices, eros accumsan vulputate faucibus, turpis tortor dictum.</p>
-										</blockquote>
-										<div class="icon-tr"></div>
-										<div class="testimonial-review">
-											<img src="images/testimonials/1.png" alt="testimoni">
-											<h1>Jonathan Dower,<small>Company Inc.</small></h1>
-										</div>
-									</div>
-								</div>
-								
-								<div class="item">
-									<div class="testimonial-item">
-										<div class="icon"><i class="fa fa-quote-right"></i></div>
-										<blockquote>
-											<p>Nunc aliquet tincidunt metus, sit amet mattis lectus sodales ac. Suspendisse rhoncus dictum eros, ut egestas eros luctus eget. Nam nibh sem, mattis et feugiat ut, porttitor nec risus.</p>
-										</blockquote>
-										<div class="icon-tr"></div>
-										<div class="testimonial-review">
-											<img src="images/testimonials/2.png" alt="testimoni">
-											<h1>Jonathan Dower<small>Leopard</small></h1>
-										</div>
-									</div>
-								</div>
-								
-							</div>
-							<div class="testimonial-buttons"><a href="#testimonial-carousel" data-slide="prev"><i class="fa fa-chevron-left"></i></a>&#32;
-							<a href="#testimonial-carousel" data-slide="next"><i class="fa fa-chevron-right"></i></a></div>
-						</div>
-					</div><!-- TESTIMONIALS END -->
-				</div>
-			
-				<div class="row sub_content">
-					<div class="col-lg-12 col-md-12 col-sm-12">
-                        <div class="promo_box">
-                            <div class="col-sm-9">
-                                <div class="promo_content">
-                                    <h3>ProBusiness is awesome responsive template, with refreshingly clean design.</h3>
-                                    <p>Lorem ipsum dolor sit amet, cons adipiscing elit. Aenean commodo ligula eget dolor. </p>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="pb_action">
-                                    <a href="#fakelink" class="btn btn-default btn-lg">
-                                        <i class="fa fa-shopping-cart"></i>
-                                        Download Now
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-					</div>
-				</div>
+                <?php
+                    require_once __DIR__.'/util/promo.php';
+                ?>
+
+        
 
                 <div class="row  sub_content">
                     <div class="col-lg-12 col-md-12 col-sm-12">
@@ -188,118 +135,41 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <div class="team-item-content">
-                            <img src="images/teams/1.png" alt="profile img">
-                            <div class="team-info centered">
-                                <h5>kristiana</h5>
-                                <small>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas placerat vehicula dolor. Sed in dictum justo. Ut arcu sem, cursus et nisl ac, euismod cursus erat. Curabitur ut orci porttitor ligula congue porttitor. Cras vitae justo vitae augue cursus bibendum.
-                                </small>
-                                <ul class="team-social">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-google-plus"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <div class="team-item-content">
-                            <img src="images/teams/2.png" alt="profile img">
-                            <div class="team-info centered">
-                                <h5>williamson</h5>
-                                <small>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas placerat vehicula dolor. Sed in dictum justo. Ut arcu sem, cursus et nisl ac, euismod cursus erat. Curabitur ut orci porttitor ligula congue porttitor. Cras vitae justo vitae augue cursus bibendum.
-                                </small>
-                                <ul class="team-social">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-google-plus"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <div class="team-item-content">
-                            <img src="images/teams/3.png" alt="profile img">
-                            <div class="team-info centered">
-                                <h5>miranda joy</h5>
-                                <small>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas placerat vehicula dolor. Sed in dictum justo. Ut arcu sem, cursus et nisl ac, euismod cursus erat. Curabitur ut orci porttitor ligula congue porttitor. Cras vitae justo vitae augue cursus bibendum.
-                                </small>
-                                <ul class="team-social">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-google-plus"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <div class="team-item-content">
-                            <img src="images/teams/4.png" alt="profile img">
-                            <div class="team-info centered">
-                                <h5>steve thomas</h5>
-                                <small>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas placerat vehicula dolor. Sed in dictum justo. Ut arcu sem, cursus et nisl ac, euismod cursus erat. Curabitur ut orci porttitor ligula congue porttitor. Cras vitae justo vitae augue cursus bibendum.
-                                </small>
-                                <ul class="team-social">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-google-plus"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    <?php
+                        $team = runQuery("SELECT * FROM `employes` LIMIT 4",[],[]);
+                        foreach ($team as $row) {// image size 270 X 320
+                            echo <<<STR
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                    <div class="team-item-content">
+                                        <img src="{$row['employee_img']}" alt="profile img" width="270" height="320">
+                                        <div class="team-info centered">
+                                            <h5>{$row['employee_name']}</h5>
+                                            <small>
+                                            {$row['employee_designation']}
+                                            </small>
+                                            <ul class="team-social">
+                                                <li>
+                                                    <a target="_blank"  href="{$row['employee_linkedin']}">
+                                                        <i class="fa fa-linkedin"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a target="_blank" href="{$row['employee_twitter']}">
+                                                        <i class="fa fa-twitter"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a target="_blank" href="{$row['employee_instagram']}">
+                                                        <i class="fa fa-instagram"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            STR;
+                        }
+                    ?>
                 </div>
 			</div>
 		</section>

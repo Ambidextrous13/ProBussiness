@@ -61,6 +61,10 @@
 					<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
 						<div class="blog_single">
                             <?php
+
+                            $cats = str_replace(' , ',' OR category_id=',$article['blog_catogories']);
+                            $cats_ = '';
+                           foreach(runQuery('SELECT `category_id`,`category_name` FROM `categories_decode` WHERE `category_id` = '.$cats,[],[]) as $row){$cats_ .= '<span><i class="fa fa-tag"></i><a href="blogs.php?id='.$row['category_id'].'&name='.$row['category_name'].'">'.$row['category_name'].'</a> </span>';}
                             echo '<article class="post">
 								<figure class="post_img">
 									<a href="#">
@@ -79,8 +83,10 @@
 										<div class="metaInfo">
 											<span><i class="fa fa-calendar"></i> <a href="#">'.intToMonthName($M).' '.$D.' '.$Y.'</a> </span>
 											<span><i class="fa fa-user"></i> By <a href="#">'.$article['blog_author'].'</a> </span>
-											<span><i class="fa fa-tag"></i><a href="#">'.$article['blog_catogories'].'</a> </span>
-											<span><i class="fa fa-comments"></i> <a href="#">'. $commentCount.' Comments</a></span>
+											<!--<span><i class="fa fa-tag"></i><a href="#">-->
+                                            '.$cats_.'
+                                            <!--</a> </span>-->
+											<span><i class="fa fa-comments"></i> <a href="#pseudo-comment">'. $commentCount.' Comments</a></span>
 										</div>
 									</div>
 									'.$article['blog_desc'].'
@@ -104,7 +110,7 @@
 										<li><a class="skype" href="#." data-placement="top" data-toggle="tooltip" title="Skype"><i class="fa fa-skype"></i></a></li>
 									</ul>
 								</div>
-								<div class="author_bio">
+								<div id="pseudo-comment" class="author_bio">
 									<h3 class="author_name"><a href="#">'.$article['blog_author'].'</a></h3>
 									<h5>CEO at <a href="#">website</a></h5>
 									<p class="author_det">
